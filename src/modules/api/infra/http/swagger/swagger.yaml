@@ -1,0 +1,21 @@
+swagger: "2.0"
+info:
+  title: "API do seu projeto"
+  version: "1.0.0"
+basePath: "/"
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: "JWT Authorization header using the Bearer scheme. Example: Bearer &lt;access_token&gt;"
+paths:
+  /users:
+    get:
+      summary: Lista de usuários
+      description: Retorna uma lista de usuários.
+      security:
+        - Bearer: []
+      responses:
+        "200":
+          description: OK
