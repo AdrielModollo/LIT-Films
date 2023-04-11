@@ -1,6 +1,6 @@
-import { MigrationInterface, QueryRunner, Table, TableColumn, TableForeignKey } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
-export class rental1681245101438 implements MigrationInterface {
+export class rentals1681251160570 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(new Table({
@@ -15,6 +15,10 @@ export class rental1681245101438 implements MigrationInterface {
                 },
                 {
                     name: "movie_id",
+                    type: "uuid"
+                },
+                {
+                    name: "user_id",
                     type: "uuid"
                 },
                 {
@@ -36,12 +40,23 @@ export class rental1681245101438 implements MigrationInterface {
             referencedTableName: "movies",
             onDelete: "SET NULL"
         }));
+
+        await queryRunner.createForeignKey("rentals", new TableForeignKey({
+            columnNames: ["user_id"],
+            referencedColumnNames: ["id"],
+            referencedTableName: "users",
+            onDelete: "SET NULL"
+        }));
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         const table = await queryRunner.getTable("rentals");
-        const foreignKey = table.foreignKeys.find(fk => fk.columnNames.indexOf("movie_id") !== -1);
-        await queryRunner.dropForeignKey("rentals", foreignKey);
+        const foreignKeyMovie = table.foreignKeys.find(fk => fk.columnNames.indexOf("movie_id") !== -1);
+        await queryRunner.dropForeignKey("rentals", foreignKeyMovie);
+
+        const foreignKeyUser = table.foreignKeys.find(fk => fk.columnNames.indexOf("user_id") !== -1);
+        await queryRunner.dropForeignKey("rentals", foreignKeyUser);
+
         await queryRunner.dropTable("rentals");
     }
 

@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table, TableColumn, TableForeignKey } from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class Movies1681242687515 implements MigrationInterface {
 
