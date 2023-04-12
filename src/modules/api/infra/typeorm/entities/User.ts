@@ -5,7 +5,9 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
     DeleteDateColumn,
+    OneToMany,
 } from "typeorm";
+import Rental from "./Rental";
 
 @Entity("users")
 export default class User {
@@ -20,6 +22,9 @@ export default class User {
 
     @Column()
     password: string;
+
+    @OneToMany(() => Rental, rental => rental.user)
+    rentals: Rental[];
 
     @CreateDateColumn()
     created_at: Date;
