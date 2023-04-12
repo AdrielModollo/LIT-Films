@@ -7,6 +7,8 @@ import { GetAllMoviesService } from "../../../services/movies/GetAllMoviesServic
 import { FindByNameMovieService } from "../../../services/movies/FindByNameMovieService";
 import { SoftDeleteByNameMovieService } from "../../../services/movies/SoftDeleteByNameMovieService";
 import { softDeleteByNameMovieSchema } from "../schemas/movies/softDeleteByNameSchema";
+import { UpdateMoviesService } from "../../../services/movies/UpdateMoviesService";
+import { bodySchemaMovie, querySchemaMovie } from "../schemas/movies/updateMovieSchema";
 
 
 export default class MoviesController {
@@ -52,6 +54,29 @@ export default class MoviesController {
             return httpExceptionMiddleware(error, request, response, next);
         }
     }
+
+    public async updateMovies(request: Request, response: Response, next): Promise<Response> {
+        try {
+            const { query, body } = request;
+            const { name } = await querySchemaMovie.validateAsync(query);
+            const { description, year, author, genre, available } = await bodySchemaMovie.validateAsync(body);
+
+            const updateMovieService = container.resolve(UpdateMoviesService);
+            const movie = await updateMovieService.execute({
+                name,
+                description,
+                year,
+                author,
+                genre,
+                available
+            });
+
+            return response.json(movie);
+        } catch (error) {
+            return httpExceptionMiddleware(error, request, response, next);
+        }
+    }
+
 
     public async softDeleteMovie(request: Request, response: Response, next): Promise<Response> {
         try {
