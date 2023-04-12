@@ -35,9 +35,9 @@ class RentalsRepository implements IRentalsRepository {
         return rental;
     }
 
-    public async findByUserIdAndMovieId(userId: string, movieId: string): Promise<Rental | undefined> {
+    public async findByUserIdAndMovieId(user_id: string, movie_id: string): Promise<Rental | undefined> {
         const rental = await this.ormRepository.findOne({
-            where: { userId, movieId },
+            where: { user_id, movie_id },
         });
 
         return rental;
