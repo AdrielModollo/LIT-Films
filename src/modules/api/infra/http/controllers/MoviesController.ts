@@ -1,23 +1,43 @@
 import { Request, Response } from "express";
 import httpExceptionMiddleware from "../middlewares/errorHandlerMiddleware";
-import axios from "axios";
+import { SearchMoviesService } from "../../../services/movies/SearchMoviesService";
+import { GetPopularMoviesService } from "../../../services/movies/GetPopularMoviesService";
+import { SearchMovieIdService } from "../../../services/movies/SearchMovieIdService";
 
 export default class MoviesController {
 
-    public async getMovieVideos(request: Request, response: Response, next): Promise<Response> {
+    public async searchMovies(request: Request, response: Response, next): Promise<Response> {
         try {
-            const { movieId } = request.query;
-            const apiKey = process.env.TMDB_API_KEY;
+            const { query, language, page } = request.query;
 
-            const apiUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=en-US`;
+            const movies = await SearchMoviesService(query, language, page);
 
-            console.log(apiUrl)
+            return response.json(movies);
+        } catch (error) {
+            return httpExceptionMiddleware(error, request, response, next);
+        }
+    }
 
-            const responseApi = await axios.get(apiUrl);
+    public async searchMovieId(request: Request, response: Response, next): Promise<Response> {
+        try {
+            const { movie_id } = request.query;
 
-            return response.json(responseApi.data);
+            const movies = await SearchMovieIdService(movie_id);
+
+            return response.json(movies);
+        } catch (error) {
+            return httpExceptionMiddleware(error, request, response, next);
+        }
+    }
+
+    public async getPopularMovies(request: Request, response: Response, next): Promise<Response> {
+        try {
+            const movies = await GetPopularMoviesService();
+
+            return response.json(movies);
         } catch (error) {
             return httpExceptionMiddleware(error, request, response, next);
         }
     }
 }
+
