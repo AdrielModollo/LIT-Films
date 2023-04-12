@@ -21,6 +21,9 @@ export class CreateRentalService {
     ) { }
 
     async execute({ user_id, movie_id, rental_date, return_date }: IRequestRental): Promise<Rental> {
+
+        rental_date = new Date();
+
         const userExists = await this.usersRepository.findById(user_id);
 
         if (!userExists) {

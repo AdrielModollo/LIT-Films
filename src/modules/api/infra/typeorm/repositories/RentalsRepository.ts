@@ -2,6 +2,7 @@ import { getRepository, Repository } from "typeorm";
 import Rental from "../entities/Rental";
 import IRentalsRepository from "../../../repositories/IRentalsRepository";
 import { ICreateRentalDTO } from "../../../dtos/rentals/ICreateRentalDTO";
+import { IUpdateRentalDTO } from "../../../dtos/rentals/IUpdateRentalDTO";
 
 class RentalsRepository implements IRentalsRepository {
     private ormRepository: Repository<Rental>;
@@ -21,6 +22,19 @@ class RentalsRepository implements IRentalsRepository {
         await this.ormRepository.save(rental);
 
         return rental;
+    }
+
+
+    public async updateRental(id: string, data: Partial<IUpdateRentalDTO>): Promise<Rental | undefined> {
+        const user = await this.ormRepository.findOne({
+            where: { id },
+        });
+
+        Object.assign(user, data);
+
+        const updatedUser = await this.ormRepository.save(user);
+
+        return updatedUser;
     }
 
     public async getAllRentals(): Promise<Rental[]> {
