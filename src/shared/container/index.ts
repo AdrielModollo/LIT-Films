@@ -5,6 +5,7 @@ import UsersRepository from '../../modules/api/infra/typeorm/repositories/UsersR
 import AuthenticateRepository from '../../modules/api/infra/typeorm/repositories/AuthenticateRepository'
 import IRentalsRepository from '../../modules/api/repositories/IRentalsRepository'
 import RentalsRepository from '../../modules/api/infra/typeorm/repositories/RentalsRepository'
+import { LeaseTermValidationService } from '../../modules/api/services/rentals/LeaseTermValidationService'
 
 
 container.registerSingleton<IUsersRepository>(
@@ -21,3 +22,5 @@ container.registerSingleton<IRentalsRepository>(
     'RentalsRepository',
     RentalsRepository
 )
+
+container.registerSingleton('LeaseTermValidationService', LeaseTermValidationService);
