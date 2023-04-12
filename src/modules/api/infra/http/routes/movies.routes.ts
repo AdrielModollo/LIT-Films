@@ -4,10 +4,8 @@ import MoviesController from "../controllers/MoviesController";
 const moviesRouter = Router();
 const moviesController = new MoviesController();
 
-moviesRouter.post("/", moviesController.createMovies);
-moviesRouter.get("/", moviesController.getAllMovies);
-moviesRouter.get("/film", moviesController.findByNameMovies);
-moviesRouter.patch("/", moviesController.updateMovies);
-moviesRouter.delete("/", moviesController.softDeleteMovie);
+moviesRouter.get("/", moviesController.searchMovies);
+moviesRouter.get("/popular", moviesController.getPopularMovies);
+moviesRouter.get("/id", moviesController.searchMovieId);
 
 export default moviesRouter;
