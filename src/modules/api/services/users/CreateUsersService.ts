@@ -3,7 +3,7 @@ import { hash } from 'bcryptjs';
 import User from "../../infra/typeorm/entities/User";
 import IUsersRepository from "../../repositories/IUsersRepository";
 import { HttpException, HttpStatusCode } from "../../../../shared/exceptions/HttpException";
-import { IRequest } from "../../dtos/IRequestDTO";
+import { IRequest } from "../../dtos/users/IRequestDTO";
 
 @injectable()
 export class CreateUserService {

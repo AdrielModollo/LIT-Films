@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import User from "../../infra/typeorm/entities/User";
 import IUsersRepository from "../../repositories/IUsersRepository";
-import { IRequest } from "../../dtos/IRequestDTO";
+import { IRequest } from "../../dtos/users/IRequestDTO";
 
 @injectable()
 export class SoftDeleteByEmailService {

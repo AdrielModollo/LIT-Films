@@ -1,6 +1,6 @@
 import User from '../infra/typeorm/entities/User';
-import { ICreateUserDTO } from '../dtos/ICreateUserDTO';
-import { IUpdateUserDTO } from '../dtos/IUpdateUserDTO';
+import { ICreateUserDTO } from '../dtos/users/ICreateUserDTO';
+import { IUpdateUserDTO } from '../dtos/users/IUpdateUserDTO';
 
 export default interface IUsersRepository {
     create(data: ICreateUserDTO): Promise<User>;

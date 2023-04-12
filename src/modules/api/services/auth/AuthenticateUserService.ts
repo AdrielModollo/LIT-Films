@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
-import { IRequest } from "../../dtos/IRequestDTO";
+import { IRequest } from "../../dtos/users/IRequestDTO";
 import { IResponse } from "../../dtos/IResponseDTO";
 import { HttpException, HttpStatusCode } from "../../../../shared/exceptions/HttpException";
 import IAuthenticateRepository from "../../repositories/IAuthenticateRepository";
