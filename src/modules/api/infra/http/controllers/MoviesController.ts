@@ -3,6 +3,7 @@ import { container } from "tsyringe";
 import httpExceptionMiddleware from "../middlewares/errorHandlerMiddleware";
 import { createMoviesSchema } from "../schemas/movies/createMoviesSchema";
 import { CreateMovieService } from "../../../services/movies/CreateMoviesService";
+import { GetAllMoviesService } from "../../../services/movies/GetAllMoviesService";
 
 
 export default class MoviesController {
@@ -25,5 +26,13 @@ export default class MoviesController {
         } catch (error) {
             return httpExceptionMiddleware(error, request, response, next);
         }
+    }
+
+    public async getAllMovies(request: Request, response: Response): Promise<Response> {
+        const listMoviesService = container.resolve(GetAllMoviesService);
+
+        const movies = await listMoviesService.execute();
+
+        return response.json(movies);
     }
 }
