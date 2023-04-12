@@ -35,13 +35,6 @@ export class rentals1681251160570 implements MigrationInterface {
         }));
 
         await queryRunner.createForeignKey("rentals", new TableForeignKey({
-            columnNames: ["movie_id"],
-            referencedColumnNames: ["id"],
-            referencedTableName: "movies",
-            onDelete: "SET NULL"
-        }));
-
-        await queryRunner.createForeignKey("rentals", new TableForeignKey({
             columnNames: ["user_id"],
             referencedColumnNames: ["id"],
             referencedTableName: "users",
@@ -51,8 +44,6 @@ export class rentals1681251160570 implements MigrationInterface {
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         const table = await queryRunner.getTable("rentals");
-        const foreignKeyMovie = table.foreignKeys.find(fk => fk.columnNames.indexOf("movie_id") !== -1);
-        await queryRunner.dropForeignKey("rentals", foreignKeyMovie);
 
         const foreignKeyUser = table.foreignKeys.find(fk => fk.columnNames.indexOf("user_id") !== -1);
         await queryRunner.dropForeignKey("rentals", foreignKeyUser);
