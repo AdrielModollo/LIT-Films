@@ -7,6 +7,7 @@ import authenticateRouter from "../../modules/api/infra/http/routes/auth.routes"
 import moviesRoutes from "../../modules/api/infra/http/routes/movies.routes";
 import authenticate from "../../modules/api/infra/http/middlewares/authenticateMiddleware";
 import { notFoundHandler } from "../../modules/api/infra/http/middlewares/errorHandlerMiddleware";
+import rentalsRoutes from "../../modules/api/infra/http/routes/rentals.routes";
 
 const routes = Router();
 
@@ -17,6 +18,7 @@ routes.use('/users', authenticateRouter);
 routes.use(authenticate);
 routes.use('/users', usersRouter);
 routes.use('/movies', moviesRoutes);
+routes.use('/rentals', rentalsRoutes);
 routes.use(notFoundHandler);
 
 export default routes;
