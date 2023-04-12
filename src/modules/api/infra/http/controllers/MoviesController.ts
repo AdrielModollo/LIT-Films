@@ -5,6 +5,8 @@ import { createMoviesSchema } from "../schemas/movies/createMoviesSchema";
 import { CreateMovieService } from "../../../services/movies/CreateMoviesService";
 import { GetAllMoviesService } from "../../../services/movies/GetAllMoviesService";
 import { FindByNameMovieService } from "../../../services/movies/FindByNameMovieService";
+import { SoftDeleteByNameMovieService } from "../../../services/movies/SoftDeleteByNameMovieService";
+import { softDeleteByNameMovieSchema } from "../schemas/movies/softDeleteByNameSchema";
 
 
 export default class MoviesController {
@@ -44,6 +46,20 @@ export default class MoviesController {
             const findByName = container.resolve(FindByNameMovieService);
 
             const movie = await findByName.execute(name);
+
+            return response.json(movie);
+        } catch (error) {
+            return httpExceptionMiddleware(error, request, response, next);
+        }
+    }
+
+    public async softDeleteMovie(request: Request, response: Response, next): Promise<Response> {
+        try {
+            const { name } = await softDeleteByNameMovieSchema.validateAsync(request.query);
+
+            const softDeleteUserService = container.resolve(SoftDeleteByNameMovieService);
+
+            const movie = await softDeleteUserService.execute({ name });
 
             return response.json(movie);
         } catch (error) {
