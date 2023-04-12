@@ -4,6 +4,7 @@ import httpExceptionMiddleware from "../middlewares/errorHandlerMiddleware";
 import { createMoviesSchema } from "../schemas/movies/createMoviesSchema";
 import { CreateMovieService } from "../../../services/movies/CreateMoviesService";
 import { GetAllMoviesService } from "../../../services/movies/GetAllMoviesService";
+import { FindByNameMovieService } from "../../../services/movies/FindByNameMovieService";
 
 
 export default class MoviesController {
@@ -34,5 +35,19 @@ export default class MoviesController {
         const movies = await listMoviesService.execute();
 
         return response.json(movies);
+    }
+
+    public async findByNameMovies(request: Request, response: Response, next): Promise<Response> {
+        try {
+            const name = request.query.name as string;
+
+            const findByName = container.resolve(FindByNameMovieService);
+
+            const movie = await findByName.execute(name);
+
+            return response.json(movie);
+        } catch (error) {
+            return httpExceptionMiddleware(error, request, response, next);
+        }
     }
 }
