@@ -1,4 +1,8 @@
-# New-Project-DDD
+# Lit Films
+
+A API tem como finalidade integrar com a plataforma https://developers.themoviedb.org/. Através desta integração, é possível obter uma base de dados sempre atualizada de filmes, e em um ambiente interno, armazenar informações relacionadas às locações desses filmes.
+
+Para autenticação de usuários, foi utilizado um repositório próprio, disponível em https://github.com/AdrielModollo/New-Project-DDD.
 
 # Estrutura DDD
 
