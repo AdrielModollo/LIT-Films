@@ -144,6 +144,8 @@ Para inicializar os testes unitários com base no package.json, basta seguir os 
 
 O arquivo "DDD Project.postman_collection" localizado na raiz do projeto é um arquivo de coleção exportado pelo Postman. Ele contém uma lista de endpoints de API que uma aplicação pode acessar, com várias rotas disponíveis através de diferentes métodos HTTP. Segue abaixo as rotas incluídas nesta coleção:
 
+## Users
+
 - PATCH /users: Esta rota atualiza um usuário existente. Ele recebe um email de usuário como parâmetro de consulta na URL e um objeto JSON no corpo da solicitação com os campos "nome" e "senha".
 
 - GET /users: Esta rota retorna uma lista de todos os usuários registrados no sistema.
@@ -156,6 +158,27 @@ O arquivo "DDD Project.postman_collection" localizado na raiz do projeto é um a
 
 - POST /users: Esta rota cria um novo usuário no sistema. Ele recebe um objeto JSON no corpo da solicitação com os campos "nome", "email" e "senha". Esta rota exige autenticação JWT no cabeçalho da solicitação, onde é pré-configurada no .env.
 
+## Movies   
+
+- GET /movies?query=The legend of zelda&page=1&language=en. Com está rota você pode encontrar filmes por nome!
+
+- GET /movies/id?movie_id=502356. Você pode buscar filmes por ID.
+
+- GET /movies/popular. Encontre todos os filmes mais populares
+
+## Rentals
+
+- POST /rentals. Alugue um filme pelo movie_id e user_id. A data em que o filme foi alugado é recuperado automaticamente!
+
+````
+{
+    "movie_id": 816904,
+    "user_id": "ed110671-d363-48f5-84d3-d66ac0ad5c51"
+}
+````
+
+- PATCH /rentals?user_id=ed110671-d363-48f5-84d3-d66ac0ad5c51&movie_id=816904. Devolva o filme com user_id e movie_id, a data de devolução é recuperado automaticamente!
+
 # TypeOrm
 
 - yarn typeorm migration:create -n NameModel
@@ -163,4 +186,5 @@ O arquivo "DDD Project.postman_collection" localizado na raiz do projeto é um a
 - yarn typeorm migration:run
 
 - yarn typeorm migration:revert
-# LIT-Films
+
+
