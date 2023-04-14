@@ -1,7 +1,7 @@
 import axios from "axios";
 import { HttpException, HttpStatusCode } from "../../../../shared/exceptions/HttpException";
 
-export async function SearchMovieIdService(movie_id) {
+export async function SearchMovieIdService(movie_id: string): Promise<any> {
     const apiKey = process.env.TMDB_API_KEY;
     const apiUrl = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${apiKey}`;
 
