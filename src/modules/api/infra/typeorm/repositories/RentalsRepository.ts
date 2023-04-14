@@ -49,12 +49,12 @@ class RentalsRepository implements IRentalsRepository {
         return rental;
     }
 
-    public async findByUserIdAndMovieId(user_id: string, movie_id: string): Promise<Rental | undefined> {
-        const rental = await this.ormRepository.findOne({
+    public async findByUserIdAndMovieId(user_id: string, movie_id: string): Promise<Rental[]> {
+        const rentals = await this.ormRepository.find({
             where: { user_id, movie_id },
         });
 
-        return rental;
+        return rentals;
     }
 }
 

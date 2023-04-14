@@ -11,12 +11,12 @@ export class LeaseTermValidationService {
     ) { }
 
     async execute(user_id: string, movie_id: string, rental_date: Date): Promise<Rental> {
-        const rental = await this.rentalsRepository.findByUserIdAndMovieId(user_id, movie_id);
+        const rentals = await this.rentalsRepository.findByUserIdAndMovieId(user_id, movie_id);
 
-        if (rental && rental.rental_date.getTime() >= rental_date.getTime() - 48 * 60 * 60 * 1000) {
+        if (rentals.length > 0 && rentals.some(rental => rental.rental_date.getTime() >= rental_date.getTime() - 48 * 60 * 60 * 1000)) {
             throw new HttpException(HttpStatusCode.CONFLICT, "You cannot rent the same movie within 48 hours!");
         }
 
-        return rental;
+        return rentals[0];
     }
 }
