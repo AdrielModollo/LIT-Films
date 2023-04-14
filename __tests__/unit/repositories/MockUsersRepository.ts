@@ -1,7 +1,7 @@
 import User from "../../../src/modules/api/infra/typeorm/entities/User";
 import IUsersRepository from "../../../src/modules/api/repositories/IUsersRepository";
-import { ICreateUserDTO } from "../../../src/modules/api/dtos/ICreateUserDTO";
-import { IUpdateUserDTO } from "../../../src/modules/api/dtos/IUpdateUserDTO";
+import { ICreateUserDTO } from "../../../src/modules/api/dtos/users/ICreateUserDTO";
+import { IUpdateUserDTO } from "../../../src/modules/api/dtos/users/IUpdateUserDTO";
 
 class MockUsersRepository implements IUsersRepository {
     private users: User[] = [];
@@ -38,6 +38,7 @@ class MockUsersRepository implements IUsersRepository {
                 name: 'John Doe',
                 email: 'johndoe@example.com',
                 password: 'password',
+                rentals: [],
                 created_at: new Date(),
                 updated_at: new Date(),
                 deleted_at: null
@@ -47,6 +48,7 @@ class MockUsersRepository implements IUsersRepository {
                 name: 'Jane Smith',
                 email: 'janesmith@example.com',
                 password: 'password',
+                rentals: [],
                 created_at: new Date(),
                 updated_at: new Date(),
                 deleted_at: null

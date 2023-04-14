@@ -7,6 +7,7 @@ class MockAuthenticateRepository implements IAuthenticateRepository {
             name: "John Doe",
             email: "johndoe@example.com",
             password: "$2a$08$F6p3iClwJRyu4FURz4YFmOFnrhDa57IaeNLA8gbhhKp.ElbxHZyla",
+            rentals: [],
             created_at: new Date(),
             updated_at: new Date(),
             deleted_at: null,
