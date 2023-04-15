@@ -4,8 +4,6 @@ import RentalsRepositoryMock, { mockMovieData } from '../../../../repositories/M
 import UsersRepositoryMock from '../../../../repositories/MockUsersRepository';
 import { IRequestRental } from '../../../../../../src/modules/api/dtos/rentals/IRequestRentalDTO';
 import { HttpException, HttpStatusCode } from '../../../../../../src/shared/exceptions/HttpException';
-import User from '../../../../../../src/modules/api/infra/typeorm/entities/User';
-
 
 describe('CreateRentalService', () => {
     let createRentalService: CreateRentalService;

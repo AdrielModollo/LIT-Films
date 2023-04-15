@@ -18,6 +18,9 @@ export class CreateRentalService {
 
         @inject('UsersRepository')
         private usersRepository: IUsersRepository,
+
+        @inject('SearchMovieIdService')
+        private searchMovieIdService: SearchMovieIdService,
     ) { }
 
     async execute({ user_id, movie_id, rental_date, }: IRequestRental): Promise<Rental> {
@@ -30,7 +33,7 @@ export class CreateRentalService {
             throw new HttpException(HttpStatusCode.NOT_FOUND, "User Not Found!");
         }
 
-        const movie = await SearchMovieIdService(movie_id);
+        const movie = await this.searchMovieIdService.execute(movie_id);
 
         await this.leaseTermValidationService.execute(user_id, movie_id, rental_date);
 
