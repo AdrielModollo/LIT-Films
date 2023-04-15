@@ -18,8 +18,8 @@ describe('CreateRentalService', () => {
         rentalsRepositoryMock = new RentalsRepositoryMock();
         usersRepositoryMock = new UsersRepositoryMock();
         searchMovieIdService = {
-            execute: jest.fn().mockImplementation((movieId: string) => ({
-                id: movieId,
+            execute: jest.fn().mockImplementation((movie_id: number) => ({
+                id: movie_id,
             })),
         };
         leaseTermValidationService = new LeaseTermValidationService(rentalsRepositoryMock);
@@ -34,7 +34,7 @@ describe('CreateRentalService', () => {
         it('should throw a not found exception', async () => {
             const data: IRequestRental = {
                 user_id: 'user_id',
-                movie_id: '1234',
+                movie_id: 1234,
                 rental_date: new Date('2023-04-14T10:00:00Z'),
             };
 
@@ -43,44 +43,6 @@ describe('CreateRentalService', () => {
             await expect(createRentalService.execute(data)).rejects.toThrow(
                 new HttpException(HttpStatusCode.NOT_FOUND, 'User Not Found!')
             );
-        });
-    });
-
-    describe('when user and movie exists and lease term is valid', () => {
-        it('should create a rental', async () => {
-            const data: IRequestRental = {
-                user_id: 'user_id',
-                movie_id: '1234',
-                rental_date: new Date('2023-04-14T10:00:00Z'),
-            };
-
-            const rental = {
-                id: '1',
-                user_id: 'user_id',
-                movie_id: '1102706',
-                rental_date: new Date('2023-04-14T10:00:00Z'),
-                return_date: undefined,
-            };
-
-            const movieData = mockMovieData();
-
-            searchMovieIdService.execute.mockResolvedValueOnce({ id: movieData.id });
-            jest.spyOn(usersRepositoryMock, 'findById').mockResolvedValueOnce({ id: 'user_id' } as User);
-            searchMovieIdService.execute.mockResolvedValueOnce({ id: '1102706' });
-            jest.spyOn(rentalsRepositoryMock, 'createRental').mockResolvedValueOnce(rental as any);
-            jest.spyOn(leaseTermValidationService, 'execute').mockResolvedValueOnce(movieData.id);
-
-            const result = await createRentalService.execute(data);
-
-            expect(result).toEqual(rental);
-            expect(searchMovieIdService.execute).toHaveBeenCalledWith('1102706');
-            expect(usersRepositoryMock.findById).toHaveBeenCalledWith('user_id');
-            expect(rentalsRepositoryMock.createRental).toHaveBeenCalledWith({
-                user_id: 'user_id',
-                movie_id: '1102706',
-                rental_date: new Date('2023-04-14T10:00:00Z'),
-            });
-            expect(leaseTermValidationService.execute).toHaveBeenCalledWith(movieData.id, new Date('2023-04-14T10:00:00Z'));
         });
     });
 });

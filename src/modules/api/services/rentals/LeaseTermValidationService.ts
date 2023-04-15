@@ -10,7 +10,7 @@ export class LeaseTermValidationService {
         private rentalsRepository: IRentalsRepository,
     ) { }
 
-    async execute(user_id: string, movie_id: string, rental_date: Date): Promise<Rental> {
+    async execute(user_id: string, movie_id: number, rental_date: Date): Promise<Rental> {
         const rentals = await this.rentalsRepository.findByUserIdAndMovieId(user_id, movie_id);
 
         if (rentals.length > 0 && rentals.some(rental => rental.rental_date.getTime() >= rental_date.getTime() - 48 * 60 * 60 * 1000)) {

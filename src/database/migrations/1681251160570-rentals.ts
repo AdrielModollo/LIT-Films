@@ -15,7 +15,7 @@ export class rentals1681251160570 implements MigrationInterface {
                 },
                 {
                     name: "movie_id",
-                    type: "uuid"
+                    type: "integer"
                 },
                 {
                     name: "user_id",
@@ -25,11 +25,6 @@ export class rentals1681251160570 implements MigrationInterface {
                     name: "rental_date",
                     type: "timestamp",
                     default: "now()"
-                },
-                {
-                    name: "return_date",
-                    type: "timestamp",
-                    isNullable: true
                 }
             ]
         }));

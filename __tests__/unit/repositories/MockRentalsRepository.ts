@@ -1,5 +1,4 @@
 import { ICreateRentalDTO } from "../../../src/modules/api/dtos/rentals/ICreateRentalDTO";
-import { IUpdateRentalDTO } from "../../../src/modules/api/dtos/rentals/IUpdateRentalDTO";
 import Rental from "../../../src/modules/api/infra/typeorm/entities/Rental";
 import IRentalsRepository from "../../../src/modules/api/repositories/IRentalsRepository";
 
@@ -27,7 +26,6 @@ class RentalsRepositoryMock implements IRentalsRepository {
             user_id: data.user_id,
             movie_id: data.movie_id,
             rental_date: data.rental_date,
-            return_date: data.return_date,
             created_at: new Date(),
             updated_at: new Date(),
         });
@@ -44,15 +42,11 @@ class RentalsRepositoryMock implements IRentalsRepository {
         throw new Error("Method not implemented.");
     }
 
-    findByUserIdAndMovieId(user_id: string, movie_id: string): Promise<Rental[]> {
+    findByUserIdAndMovieId(user_id: string, movie_id: number): Promise<Rental[]> {
         const rentals = this.rentals.filter(
             (rental) => rental.user_id === user_id && rental.movie_id === movie_id
         );
         return Promise.resolve(rentals);
-    }
-
-    updateRental(id: string, data: Partial<IUpdateRentalDTO>): Promise<Rental> {
-        throw new Error("Method not implemented.");
     }
 
     public getRentals(rentals: Rental[]): void {

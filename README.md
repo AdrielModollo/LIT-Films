@@ -181,8 +181,6 @@ O arquivo "DDD Project.postman_collection" localizado na raiz do projeto é um a
 }
 ````
 
-- PATCH /rentals?user_id=ed110671-d363-48f5-84d3-d66ac0ad5c51&movie_id=816904. Devolva o filme com user_id e movie_id, a data de devolução é recuperado automaticamente!
-
 # TypeOrm
 
 - yarn typeorm migration:create -n NameModel

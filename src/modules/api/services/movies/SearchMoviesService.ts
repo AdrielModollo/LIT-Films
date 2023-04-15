@@ -1,18 +1,9 @@
-import axios from "axios";
-import { HttpException, HttpStatusCode } from "../../../../shared/exceptions/HttpException";
+import { configEnv } from '../../infra/http/middlewares/configEnv';
+import { ApiService } from "../../../../shared/exceptions/ApiService";
 
-export async function SearchMoviesService(query?, language?, page?) {
-    const apiKey = process.env.TMDB_API_KEY;
-    const apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}&language=${language}&page=${page || 1}`;
+export async function SearchMoviesService(query: string, language: string, page = 1): Promise<any> {
+    const apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${configEnv.TMDB_API_KEY}&query=${query}&language=${language}&page=${page}`;
+    const response = await ApiService.get(apiUrl);
 
-    const responseApi = await axios.get(apiUrl);
-
-    const { results } = responseApi.data;
-
-    if (results.length === 0) {
-        throw new HttpException(HttpStatusCode.NOT_FOUND, 'Movie not found.');
-    }
-
-    return results;
+    return response;
 }
-

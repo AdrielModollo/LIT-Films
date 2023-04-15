@@ -20,7 +20,7 @@ export class CreateRentalService {
         private usersRepository: IUsersRepository,
     ) { }
 
-    async execute({ user_id, movie_id, rental_date, return_date }: IRequestRental): Promise<Rental> {
+    async execute({ user_id, movie_id, rental_date, }: IRequestRental): Promise<Rental> {
 
         rental_date = new Date();
 
@@ -37,8 +37,7 @@ export class CreateRentalService {
         const newRental = await this.rentalsRepository.createRental({
             user_id,
             movie_id: movie.id,
-            rental_date,
-            return_date,
+            rental_date
         });
 
         return newRental;

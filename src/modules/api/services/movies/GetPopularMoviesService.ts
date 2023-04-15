@@ -1,17 +1,10 @@
-import axios from "axios";
-import { HttpException, HttpStatusCode } from "../../../../shared/exceptions/HttpException";
+import { ApiService } from '../../../../shared/exceptions/ApiService';
+import { configEnv } from '../../infra/http/middlewares/configEnv';
+import { IMovieData } from '../../dtos/movies/IMovieData';
 
-export async function GetPopularMoviesService() {
-    const apiKey = process.env.TMDB_API_KEY;
-    const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US`;
+export async function GetPopularMoviesService(): Promise<IMovieData[]> {
+    const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${configEnv.TMDB_API_KEY}&language=en-US`;
+    const results = await ApiService.get<IMovieData[]>(apiUrl);
 
-    const responseApi = await axios.get(apiUrl);
-
-    const { results } = responseApi.data;
-
-    if (results.length === 0) {
-        throw new HttpException(HttpStatusCode.NOT_FOUND, 'Movies not found.');
-    }
-
-    return responseApi.data;
+    return results;
 }

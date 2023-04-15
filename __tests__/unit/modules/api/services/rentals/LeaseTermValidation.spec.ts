@@ -15,7 +15,7 @@ describe('LeaseTermValidationService', () => {
     describe('when there are no rentals for the user and movie', () => {
         it('should not throw an exception', async () => {
             const user_id = 'user_id';
-            const movie_id = 'movie_id';
+            const movie_id = 123;
             const rental_date = new Date('2023-04-14T10:00:00Z');
 
             const rental = await leaseTermValidationService.execute(user_id, movie_id, rental_date);
@@ -29,14 +29,13 @@ describe('LeaseTermValidationService', () => {
     describe('when there is a rental for the user and movie within 48 hours', () => {
         it('should throw a conflict exception', async () => {
             const user_id = 'user_id';
-            const movie_id = 'movie_id';
+            const movie_id = 123;
             const rental_date = new Date('2023-04-14T10:00:00Z');
             const rental1 = {
                 id: 'rental_id_1',
                 user_id,
                 movie_id,
                 rental_date: new Date('2023-04-12T10:00:00Z'),
-                return_date: null,
                 user: null,
                 created_at: new Date(),
                 updated_at: new Date(),
@@ -56,7 +55,7 @@ describe('LeaseTermValidationService', () => {
     describe('when there is a rental for the user and movie before 48 hours', () => {
         it('should not throw a conflict exception', async () => {
             const user_id = 'user_id';
-            const movie_id = 'movie_id';
+            const movie_id = 123;
             const rental_date = new Date('2023-04-14T10:00:00Z');
 
             const rental1 = {
@@ -64,7 +63,6 @@ describe('LeaseTermValidationService', () => {
                 user_id,
                 movie_id,
                 rental_date: new Date('2023-04-12T09:59:59Z'),
-                return_date: null,
                 user: null,
                 created_at: new Date(),
                 updated_at: new Date(),

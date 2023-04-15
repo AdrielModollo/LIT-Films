@@ -16,16 +16,13 @@ export default class Rental {
     id: string;
 
     @Column()
-    movie_id: string;
+    movie_id: number;
 
     @Column()
     user_id: string;
 
     @Column({ default: () => "now()" })
     rental_date: Date;
-
-    @Column({ nullable: true })
-    return_date: Date;
 
     @ManyToOne(() => User, user => user.rentals)
     @JoinColumn({ name: "user_id" })

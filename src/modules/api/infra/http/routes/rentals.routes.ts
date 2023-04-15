@@ -5,6 +5,5 @@ const rentalsRoutes = Router();
 const rentalsController = new RentalsController();
 
 rentalsRoutes.post("/", rentalsController.createRental);
-rentalsRoutes.patch("/", rentalsController.updateRental);
 
 export default rentalsRoutes;

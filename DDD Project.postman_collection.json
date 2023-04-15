@@ -268,7 +268,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"movie_id\": 816904,\r\n    \"user_id\": \"ed110671-d363-48f5-84d3-d66ac0ad5c51\"\r\n}",
+							"raw": "{\r\n    \"movie_id\": 1102706,\r\n    \"user_id\": \"5fd7e009-14c2-4dd5-86e0-bb54677eb60f\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -283,34 +283,6 @@
 							"port": "3000",
 							"path": [
 								"rentals"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Users",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/rentals?user_id=ed110671-d363-48f5-84d3-d66ac0ad5c51&movie_id=816904",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"rentals"
-							],
-							"query": [
-								{
-									"key": "user_id",
-									"value": "ed110671-d363-48f5-84d3-d66ac0ad5c51"
-								},
-								{
-									"key": "movie_id",
-									"value": "816904"
-								}
 							]
 						}
 					},
@@ -366,7 +338,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"teste1@outlook.com\",\r\n    \"password\": \"1234\"\r\n}",
+					"raw": "{\r\n    \"email\": \"adriel@outlook.com\",\r\n    \"password\": \"12345\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
